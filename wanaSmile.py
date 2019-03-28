@@ -31,14 +31,14 @@ while True:
 		print("Invalid!Again:")
 		
 		
-# with serial.Serial('/dev/ttyS1', 115200, timeout=1) as ser:
-# 	# ser = serial.Serial('/dev/ttyUSB0')  # open serial port
-	
+	with serial.Serial('/dev/ttyS1', 115200, timeout=1) as ser:
+		# ser = serial.Serial('/dev/ttyUSB0')  # open serial port
 		
-# 	print(ser.name)         # check which port was really used
-	
-	
-# 	# ser.write("a".encode())     	# write a string
-# 	# line = ser.readline()   # read a '\n' terminated line
-# 	# print(line)
-# 	ser.close()             	# close port
+			
+		# print(ser.name)         # check which port was really used
+		
+		
+		# ser.write("a".encode())     	# write a string
+		data = ser.readline()   # read a '\n' terminated line
+		print("Root say: " + line)
+		ser.close()             	# close port
