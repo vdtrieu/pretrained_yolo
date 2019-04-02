@@ -1,25 +1,36 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2016 James Myatt <james@jamesmyatt.co.uk>
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Eclipse Distribution License v1.0
+# which accompanies this distribution.
+#
+# The Eclipse Distribution License is available at
+#   http://www.eclipse.org/org/documents/edl-v10.php.
+#
+# Contributors:
+#    James Myatt - initial implementation
+
+# This shows a simple example of standard logging with an MQTT subscriber client.
+
+import context  # Ensures paho is in PYTHONPATH
 import paho.mqtt.client as mqtt
 
-# The callback for when the client receives a CONNACK response from the server.
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
-    # Subscribing in on_connect() means that if we lose the connection and
-    # reconnect then subscriptions will be renewed.
-    client.subscribe("$SYS/#")
+# If you want to use a specific client id, use
+# mqttc = mqtt.Client("client-id")
+# but note that the client id must be unique on the broker. Leaving the client
+# id parameter empty will generate a random id for you.
+mqttc = mqtt.Client()
 
-# The callback for when a PUBLISH message is received from the server.
-def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
+logger = logging.getLogger(__name__)
+mqttc.enable_logger(logger)
 
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
+mqttc.connect("m16.cloudmqtt.com", 12290, 60)
+mqttc.subscribe("$SYS/#", 0)
 
-client.connect("iot.eclipse.org", 1883, 60)
-
-# Blocking call that processes network traffic, dispatches callbacks and
-# handles reconnecting.
-# Other loop*() functions are available that give a threaded interface and a
-# manual interface.
-client.loop_forever()
+mqttc.loop_forever()
