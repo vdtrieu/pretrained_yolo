@@ -15,7 +15,7 @@
 
 # This shows a simple example of standard logging with an MQTT subscriber client.
 
-import context  # Ensures paho is in PYTHONPATH
+# import context  # Ensures paho is in PYTHONPATH
 import paho.mqtt.client as mqtt
 
 import logging
