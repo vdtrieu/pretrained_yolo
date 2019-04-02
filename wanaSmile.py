@@ -8,9 +8,10 @@ ON = "4"
 OFF = "5"
 
 a = raw_input("Command: ")
+print("Type \"exit\" to exit")
+
 
 while True:
-	print("Type \"exit\" to exit")
 	if (a == "group1"):
 		os.system("echo " + GROUP1 + " > /dev/ttyUSB0")
 		print("echo " + GROUP1 + " > /dev/ttyUSB0")
