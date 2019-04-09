@@ -17,9 +17,7 @@
 
 # import context  # Ensures paho is in PYTHONPATH
 import paho.mqtt.client as mqtt
-
-# import logging
-# logging.basicConfig(level=logging.DEBUG)
+import numpy as np
 
 # If you want to use a specific client id, use
 # mqttc = mqtt.Client("client-id")
@@ -37,10 +35,18 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
-
+    command = msg.payload.decode("utf-8")
+    # print("CMD: ", command)
+#intial input
 broker = "m16.cloudmqtt.com"
-mqttc = mqtt.Client("client")
-mqttc.username_pw_set("sknweddk", password="WDBf0aSOTwfY")
+user = "sknweddk"
+pw = "WDBf0aSOTwfY"
+port = 12290
+command = ""
+id = np.random.randint(1,10)				# to avoid dupplicating client id 
+mqttc = mqtt.Client("client-" + str(id))
+
+mqttc.username_pw_set(user, password=pw)
 
 mqttc.on_connect  = on_connect
 mqttc.on_log = on_log
@@ -48,9 +54,9 @@ mqttc.on_message = on_message
 
 
 
-mqttc.connect(broker, 12290, 60)
+mqttc.connect(broker, port, 60)
 mqttc.subscribe("led", 0)
-# mqttc.subscribe("group", 0)
+mqttc.subscribe("group", 0)
 mqttc.publish("led", "on")
 
 mqttc.loop_forever()
