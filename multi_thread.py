@@ -24,7 +24,9 @@ class myThread (threading.Thread):                  #UART communication
         print ("Starting " + self.name)
         # Get lock to synchronize threads
         threadLock.acquire()
-        print_time(self.name, self.counter, 3)
+        # print_time(self.name, self.counter, 3)
+        # read_data_uart()
+
         # Free lock to release next thread
         threadLock.release()
 
