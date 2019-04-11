@@ -7,11 +7,13 @@ ALL = "3"
 ON = "4"
 OFF = "5"
 
-cmd = raw_input("Command: ")
+# cmd = raw_input("Command: ")
 print("Type \"exit\" to exit")
 
 
-while True:
+while cmd != "":
+	cmd = raw_input("Command: ")
+
 	if (cmd == "group1"):
 		os.system("echo " + GROUP1 + " > /dev/ttyUSB0")
 		print("echo " + GROUP1 + " > /dev/ttyUSB0")
