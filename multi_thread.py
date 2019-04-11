@@ -87,7 +87,9 @@ def on_message(client, userdata, msg):
 def read_data_uart():
     with serial.Serial('/dev/' + UART_PORT, 115200, timeout = 1) as ser:
         data = ser.readline()   # read a '\n' terminated line
-        print("Root say: " + data)
+        if data != "":
+            print("Root say: " + data)
+        
         # time.sleep(1)
 
 def write_command_uart(cmd):
