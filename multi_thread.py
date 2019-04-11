@@ -27,7 +27,7 @@ class myThread (threading.Thread):                  #UART communication
         # print_time(self.name, self.counter, 3)
         while True:
             read_data_uart()
-            sleep(1)
+
         
 
         # Free lock to release next thread
@@ -88,6 +88,7 @@ def read_data_uart():
     with serial.Serial('/dev/' + UART_PORT, 115200, timeout = 1) as ser:
         data = ser.readline()   # read a '\n' terminated line
         print("Root say: " + data)
+        # time.sleep(1)
 
 def write_command_uart(cmd):
     if (cmd == "group1"):
