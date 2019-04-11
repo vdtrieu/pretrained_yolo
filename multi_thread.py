@@ -23,12 +23,15 @@ class myThread (threading.Thread):                  #UART communication
     def run(self):
         print ("Starting " + self.name)
         # Get lock to synchronize threads
-        threadLock.acquire()
+        # threadLock.acquire()
         # print_time(self.name, self.counter, 3)
-        read_data_uart()
+        while True:
+            read_data_uart()
+            sleep(1)
+        
 
         # Free lock to release next thread
-        threadLock.release()
+        # threadLock.release()
 
 class myThread2 (threading.Thread):                 # MQTT cloud communication
     def __init__(self, threadID, name, counter):
@@ -39,7 +42,7 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
     def run(self):
         print ("Starting " + self.name)
         # Get lock to synchronize threads
-        threadLock.acquire()
+        # threadLock.acquire()
         # print_time(self.name, self.counter, 3)
 
         broker = "m16.cloudmqtt.com"
@@ -64,7 +67,7 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
         mqttc.loop_forever()
 
         # Free lock to release next thread
-        threadLock.release()
+        # threadLock.release()
 
 def on_log(client, userdata, level, buf):
     print("log: " + buf)
@@ -127,6 +130,6 @@ threads.append(thread1)
 threads.append(thread2)
 
 # Wait for all threads to complete
-for t in threads:
-    t.join()
-print ("Exiting Main Thread")
+# for t in threads:
+#     t.join()
+# print ("Exiting Main Thread")
