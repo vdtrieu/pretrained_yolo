@@ -25,7 +25,7 @@ class myThread (threading.Thread):                  #UART communication
         # Get lock to synchronize threads
         threadLock.acquire()
         # print_time(self.name, self.counter, 3)
-        # read_data_uart()
+        read_data_uart()
 
         # Free lock to release next thread
         threadLock.release()
@@ -88,19 +88,19 @@ def read_data_uart():
 
 def write_command_uart(cmd):
     if (cmd == "group1"):
-        # os.system("echo " + GROUP1 + " > /dev/" + UART_PORT)
+        os.system("echo " + GROUP1 + " > /dev/" + UART_PORT)
         print("echo " + GROUP1 + " > /dev/" + UART_PORT)     
     elif (cmd == "group2"):
-        # os.system("echo " + GROUP2 + " > /dev/" + UART_PORT)
+        os.system("echo " + GROUP2 + " > /dev/" + UART_PORT)
         print("echo " + GROUP2 + " > /dev/" + UART_PORT)
     elif (cmd == "all"):
-        # os.system("echo " + ALL + " > /dev/" + UART_PORT)
+        os.system("echo " + ALL + " > /dev/" + UART_PORT)
         print("echo " + ALL + " > /dev/" + UART_PORT)
     elif (cmd == "on"):
-        # os.system("echo " + ON + " > /dev/" + UART_PORT)
+        os.system("echo " + ON + " > /dev/" + UART_PORT)
         print("echo " + ON + " > /dev/" + UART_PORT)
     elif (cmd == "off"):
-        # os.system("echo " + OFF + " > /dev/" + UART_PORT)
+        os.system("echo " + OFF + " > /dev/" + UART_PORT)
         print("echo " + OFF + " > /dev/" + UART_PORT)
     else:
         print("Invalid!")
