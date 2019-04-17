@@ -13,7 +13,13 @@ OFF = "5"
 UART_PORT = "ttyUSB0"
 
 command = ""
+broker = "m16.cloudmqtt.com"
+user = "sknweddk"
+pw = "WDBf0aSOTwfY"
+port = 12290
 
+
+mqttc.username_pw_set(user, password=pw)
 class myThread (threading.Thread):                  #UART communication
     def __init__(self, threadID, name, counter):
         threading.Thread.__init__(self)
@@ -25,6 +31,7 @@ class myThread (threading.Thread):                  #UART communication
         # Get lock to synchronize threads
         # threadLock.acquire()
         # print_time(self.name, self.counter, 3)
+
         while True:
             read_data_uart()
 
@@ -44,16 +51,8 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
         # Get lock to synchronize threads
         # threadLock.acquire()
         # print_time(self.name, self.counter, 3)
-
-        broker = "m16.cloudmqtt.com"
-        user = "sknweddk"
-        pw = "WDBf0aSOTwfY"
-        port = 12290
-
         id = np.random.randint(1,10)              # to avoid dupplicating client id 
         mqttc = mqtt.Client("client-" + str(id))
-
-        mqttc.username_pw_set(user, password=pw)
 
         mqttc.on_connect  = on_connect
         mqttc.on_log = on_log
@@ -89,7 +88,11 @@ def read_data_uart():
         data = ser.readline()   # read a '\n' terminated line
         if data != "":
             print("Root say: " + data)
-        
+            mqtt_ack_client = mqtt.Client("mqtt_ack_client");
+            mqtt_ack_client.on_connect = on_connect
+            mqtt_ack_client.on_log = on_log
+            # mqtt_ack_client.subscribe("ack", 0)
+            mqtt_ack_client.publish("ack", data)
         # time.sleep(1)
 
 def write_command_uart(cmd):
@@ -111,11 +114,7 @@ def write_command_uart(cmd):
     else:
         print("Invalid!")
 
-def print_time(threadName, delay, counter):
-   while counter:
-      time.sleep(delay)
-      print ("%s: %s" % (threadName, time.ctime(time.time())))
-      counter -= 1
+
 
 threadLock = threading.Lock()
 threads = []
