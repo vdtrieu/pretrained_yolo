@@ -89,13 +89,16 @@ def read_data_uart():
         if data != "":
             print("Root say: " + data)
             id2 = np.random.randint(1,10)
-            mqtt_ack_client = mqtt.Client("mqtt_ack_client" + str(id2) );
+            mqtt_ack_client = mqtt.Client("mqtt_ack_client" + str(id2) )
             mqtt_ack_client.username_pw_set(user, password=pw)
+            mqtt_ack_client.connect("m16.cloudmqtt.com", 12290, 60)
 
             mqtt_ack_client.on_connect = on_connect
             mqtt_ack_client.on_log = on_log
             # mqtt_ack_client.subscribe("ack", 0)
-            mqtt_ack_client.publish("ack", data)
+            mqtt_ack_client.publish("ack", payload=data, qos=0)
+
+        data = ""
         # time.sleep(1)
 
 def write_command_uart(cmd):
