@@ -84,11 +84,12 @@ def on_message(client, userdata, msg):
     write_command_uart(command)
     
 def read_data_uart():
-    with serial.Serial('/dev/' + UART_PORT, 115200, timeout = 1) as ser:
+    with serial.Serial('/dev/' + UART_PORT, 115200, timeout = 0.5) as ser:
         data = ser.readline()   # read a '\n' terminated line
         if data != "":
             print("Root say: " + data)
-            mqtt_ack_client = mqtt.Client("mqtt_ack_client");
+            id2 = np.random.randint(1,10)
+            mqtt_ack_client = mqtt.Client("mqtt_ack_client" + str(id2) );
             mqtt_ack_client.username_pw_set(user, password=pw)
 
             mqtt_ack_client.on_connect = on_connect
