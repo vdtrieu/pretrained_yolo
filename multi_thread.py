@@ -19,7 +19,7 @@ pw = "WDBf0aSOTwfY"
 port = 12290
 
 
-mqttc.username_pw_set(user, password=pw)
+
 class myThread (threading.Thread):                  #UART communication
     def __init__(self, threadID, name, counter):
         threading.Thread.__init__(self)
@@ -53,7 +53,7 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
         # print_time(self.name, self.counter, 3)
         id = np.random.randint(1,10)              # to avoid dupplicating client id 
         mqttc = mqtt.Client("client-" + str(id))
-
+        mqttc.username_pw_set(user, password=pw)
         mqttc.on_connect  = on_connect
         mqttc.on_log = on_log
         mqttc.on_message = on_message
@@ -89,6 +89,8 @@ def read_data_uart():
         if data != "":
             print("Root say: " + data)
             mqtt_ack_client = mqtt.Client("mqtt_ack_client");
+            mqtt_ack_client.username_pw_set(user, password=pw)
+
             mqtt_ack_client.on_connect = on_connect
             mqtt_ack_client.on_log = on_log
             # mqtt_ack_client.subscribe("ack", 0)
