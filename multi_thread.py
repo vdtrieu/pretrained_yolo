@@ -14,8 +14,7 @@ OFF = "5"
 TEMP = "6"
 BATTERY = "7"
 # uart port
-U
-ART_PORT = "ttyUSB0"
+UART_PORT = "ttyUSB0"
 
 command = ""
 broker = "m16.cloudmqtt.com"
@@ -90,20 +89,22 @@ def on_message(client, userdata, msg):
     
 def read_data_uart():
     with serial.Serial('/dev/' + UART_PORT, 115200, timeout = 0.5) as ser:
+        
         data = ser.readline()   # read a '\n' terminated line
-        while (not data.strip()):  # evaluates to true when an "empty" line is received
+          
             
-            if data != "":
-                print("Root say: " + data)
-                id2 = np.random.randint(1,10)
-                mqtt_ack_client = mqtt.Client("mqtt_ack_client" + str(id2) )
-                mqtt_ack_client.username_pw_set(user, password=pw)
-                mqtt_ack_client.connect("m16.cloudmqtt.com", 12290, 60)
+        if data != "":
+            print("Root say: " + data)
+            id2 = np.random.randint(1,10)
+            mqtt_ack_client = mqtt.Client("mqtt_ack_client" + str(id2) )
+            mqtt_ack_client.username_pw_set(user, password=pw)
+            mqtt_ack_client.connect("m16.cloudmqtt.com", 12290, 60)
 
-                mqtt_ack_client.on_connect = on_connect
-                mqtt_ack_client.on_log = on_log
-                # mqtt_ack_client.subscribe("ack", 0)
-                mqtt_ack_client.publish("ack", payload=data, qos=0)
+            mqtt_ack_client.on_connect = on_connect
+            mqtt_ack_client.on_log = on_log
+            # mqtt_ack_client.subscribe("ack", 0)
+            mqtt_ack_client.publish("ack", payload=data, qos=0)
+            # data = ser.readline()
 
         data = ""
         
@@ -132,6 +133,12 @@ def write_command_uart(cmd):
         print("echo " + BATTERY + " > /dev/" + UART_PORT)
     else:
         print("Invalid!")
+
+def data_analise(data):
+    if data == '':
+        return data;
+    else:
+        return data
 
 
 
