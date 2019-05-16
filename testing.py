@@ -7,8 +7,8 @@ import sys
 
 
 def pub():
-    mqttc.publish("ack", payload= "total ack received: 4, Success", qos=0)
-    threading.Timer(1, pub).start()
+    mqttc.publish("sensor", payload= "temp", qos=0)
+    threading.Timer(10, pub).start()
 
 mqttc = mqtt.Client("client1", clean_session=False)
 mqttc.username_pw_set("sknweddk", "WDBf0aSOTwfY")
