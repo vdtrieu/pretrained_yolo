@@ -32,14 +32,9 @@ class myThread (threading.Thread):                  #UART communication
         self.counter = counter
     def run(self):
         print ("Starting " + self.name)
-        # Get lock to synchronize threads
-        # threadLock.acquire()
-        # print_time(self.name, self.counter, 3)
-
+        
         while True:
             read_data_uart()
-
-        
 
         # Free lock to release next thread
         # threadLock.release()
@@ -64,8 +59,9 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
 
         mqttc.connect(broker, port, 60)
         mqttc.subscribe("led", 0)
+        mqttc.subscribe("sensor", 0)
         mqttc.subscribe("group", 0)
-        mqttc.publish("led", "on")
+        mqttc.publish("group", "group1")
 
         mqttc.loop_forever()
 
