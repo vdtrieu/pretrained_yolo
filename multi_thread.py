@@ -36,8 +36,7 @@ class myThread (threading.Thread):                  #UART communication
         while True:
             read_data_uart()
 
-        # Free lock to release next thread
-        # threadLock.release()
+    
 
 class myThread2 (threading.Thread):                 # MQTT cloud communication
     def __init__(self, threadID, name, counter):
@@ -47,12 +46,9 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
         self.counter = counter
     def run(self):
         print ("Starting " + self.name)
-        # Get lock to synchronize threads
-        # threadLock.acquire()
-        # print_time(self.name, self.counter, 3)
         id = np.random.randint(1,10)              # to avoid dupplicating client id 
         mqttc = mqtt.Client("client-" + str(id))
-        mqttc.username_pw_set(user, password=pw)
+        mqttpac.username_pw_set(user, password=pw)
         mqttc.on_connect  = on_connect
         mqttc.on_log = on_log
         mqttc.on_message = on_message
@@ -65,8 +61,7 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
 
         mqttc.loop_forever()
 
-        # Free lock to release next thread
-        # threadLock.release()
+ 
 
 def on_log(client, userdata, level, buf):
     print("log: " + buf)
@@ -98,9 +93,9 @@ def read_data_uart():
 
             mqtt_ack_client.on_connect = on_connect
             mqtt_ack_client.on_log = on_log
-            # mqtt_ack_client.subscribe("ack", 0)
+
             mqtt_ack_client.publish("ack", payload=data, qos=0)
-            # data = ser.readline()
+ 
 
         data = ""
         
@@ -152,8 +147,3 @@ thread2.start()
 # Add threads to thread list
 threads.append(thread1)
 threads.append(thread2)
-
-# Wait for all threads to complete
-# for t in threads:
-#     t.join()
-# print ("Exiting Main Thread")
