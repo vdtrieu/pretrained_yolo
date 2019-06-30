@@ -63,7 +63,7 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
  
 
 def on_log(client, userdata, level, buf):
-    print("log: " + buf)
+    # print("log: " + buf)
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
