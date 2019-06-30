@@ -49,7 +49,7 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
         print ("Starting " + self.name)
         id = np.random.randint(1,10)              # to avoid dupplicating client id 
         mqttc = mqtt.Client("client-" + str(id))
-        mqttpac.username_pw_set(user, password=pw)
+        mqttpc.username_pw_set(user, password=pw)
         mqttc.on_connect  = on_connect
         mqttc.on_log = on_log
         mqttc.on_message = on_message
