@@ -4,7 +4,7 @@ import paho.mqtt.client as mqtt
 import numpy as np
 import serial
 import os
-import serial.tools.list_ports as ser
+import serial.tools.list_ports as serport
 
 # command
 GROUP1 = "1"
@@ -127,7 +127,7 @@ def write_command_uart(cmd):
         print("Invalid!")
 
 def get_comport_name():
-    list_ports = ser.comports()
+    list_ports = serport.comports()
     for port in list_ports :
         if ("ttyUSB" in port.name):
             name = port.name
