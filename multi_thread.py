@@ -15,7 +15,7 @@ OFF = "5"
 TEMP = "6"
 BATTERY = "7"
 # uart port
-UART_PORT = "ttyUSB0"
+UART_PORT = get_comport_name
 
 command = ""
 broker = "m16.cloudmqtt.com"
@@ -80,7 +80,7 @@ def on_message(client, userdata, msg):
     write_command_uart(command)
     
 def read_data_uart():
-    with serial.Serial('/dev/' + get_comport_name, 115200, timeout = 0.5) as ser:
+    with serial.Serial('/dev/' + UART_PORT, 115200, timeout = 0.5) as ser:
         
         data = ser.readline()   # read a '\n' terminated line
           
