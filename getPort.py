@@ -4,4 +4,4 @@ name = ""
 for port in list_ports :
 	if ("ttyUSB" in port.name):
 		name = port.name
-    	print(port.device)
+		print(port.device)
