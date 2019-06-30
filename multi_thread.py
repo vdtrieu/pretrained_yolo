@@ -15,7 +15,7 @@ OFF = "5"
 TEMP = "6"
 BATTERY = "7"
 # uart port
-UART_PORT = get_comport_name
+UART_PORT = get_comport_name()
 
 command = ""
 broker = "m16.cloudmqtt.com"
