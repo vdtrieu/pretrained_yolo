@@ -48,7 +48,7 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
         mqttc = mqtt.Client("client-" + str(id))
         mqttc.username_pw_set(user, password=pw)
         mqttc.on_connect  = on_connect
-        mqttc.on_log = on_log
+        # mqttc.on_log = on_log
         mqttc.on_message = on_message
 
         mqttc.connect(broker, port, 60)
