@@ -1,6 +1,7 @@
 import serial
 import os
 
+
 GROUP1 = "1"
 GROUP2 = "2"
 ALL = "3"

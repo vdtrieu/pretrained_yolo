@@ -4,6 +4,7 @@ import paho.mqtt.client as mqtt
 import numpy as np
 import serial
 import os
+import serial.tools.list_ports as ser
 
 # command
 GROUP1 = "1"
@@ -79,7 +80,7 @@ def on_message(client, userdata, msg):
     write_command_uart(command)
     
 def read_data_uart():
-    with serial.Serial('/dev/' + UART_PORT, 115200, timeout = 0.5) as ser:
+    with serial.Serial('/dev/' + get_comport_name, 115200, timeout = 0.5) as ser:
         
         data = ser.readline()   # read a '\n' terminated line
           
@@ -125,11 +126,13 @@ def write_command_uart(cmd):
     else:
         print("Invalid!")
 
-def data_analise(data):
-    if data == '':
-        return data;
-    else:
-        return data
+def get_comport_name():
+    list_ports = ser.comports()
+    for port in list_ports :
+        if ("ttyUSB" in port.name):
+            name = port.name
+    return name
+
 
 
 
