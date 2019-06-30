@@ -15,7 +15,7 @@ OFF = "5"
 TEMP = "6"
 BATTERY = "7"
 # uart port
-UART_PORT = ""
+UART_PORT = ""  
 command = ""
 broker = "m16.cloudmqtt.com"
 user = "sknweddk"
