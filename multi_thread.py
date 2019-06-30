@@ -82,7 +82,7 @@ def read_data_uart():
         data = ser.readline()   # read a '\n' terminated line
           
             
-        if !(data in list_of_command) :
+        if (data not in list_of_command) :
             print("Root say: " + data)
             id2 = np.random.randint(1,10)
             mqtt_ack_client = mqtt.Client("mqtt_ack_client" + str(id2) )
