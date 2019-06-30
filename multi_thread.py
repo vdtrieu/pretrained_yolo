@@ -33,8 +33,7 @@ class myThread (threading.Thread):                  #UART communication
     def run(self):
         print ("Starting " + self.name)
         
-        while True:read_data_uart
-            ()
+        while True:read_data_uart()
 
     
 
