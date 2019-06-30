@@ -14,8 +14,7 @@ ON = "4"
 OFF = "5"
 TEMP = "6"
 BATTERY = "7"
-# uart port
-UART_PORT = ""  
+ 
 command = ""
 broker = "m16.cloudmqtt.com"
 user = "sknweddk"
@@ -45,8 +44,6 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
         self.counter = counter
         
     def run(self):
-        # uart port
-        UART_PORT = get_comport_name()
         print ("Starting " + self.name)
         id = np.random.randint(1,10)              # to avoid dupplicating client id 
         mqttc = mqtt.Client("client-" + str(id))
@@ -103,6 +100,8 @@ def read_data_uart():
         
 
 def write_command_uart(cmd):
+    # uart port
+    UART_PORT = get_comport_name() 
     if (cmd == "group1"):
         os.system("echo " + GROUP1 + " > /dev/" + UART_PORT)
         print("echo " + GROUP1 + " > /dev/" + UART_PORT)     
