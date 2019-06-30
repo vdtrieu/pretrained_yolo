@@ -13,8 +13,7 @@ ALL = "3"
 ON = "4"
 OFF = "5"
 TEMP = "6"
-BATTERY = "7"
- 
+list_of_command = [GROUP1, GROUP2, ALL, OFF, ON, TEMP, ""]
 command = ""
 broker = "m16.cloudmqtt.com"
 user = "sknweddk"
@@ -83,7 +82,7 @@ def read_data_uart():
         data = ser.readline()   # read a '\n' terminated line
           
             
-        if data != "":
+        if !(data in list_of_command) :
             print("Root say: " + data)
             id2 = np.random.randint(1,10)
             mqtt_ack_client = mqtt.Client("mqtt_ack_client" + str(id2) )
