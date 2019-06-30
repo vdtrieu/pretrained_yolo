@@ -43,9 +43,10 @@ class myThread2 (threading.Thread):                 # MQTT cloud communication
         self.threadID = threadID
         self.name = name
         self.counter = counter
+        
+    def run(self):
         # uart port
         UART_PORT = get_comport_name()
-    def run(self):
         print ("Starting " + self.name)
         id = np.random.randint(1,10)              # to avoid dupplicating client id 
         mqttc = mqtt.Client("client-" + str(id))
